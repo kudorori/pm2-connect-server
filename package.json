@@ -1,8 +1,6 @@
 {
-  "name": "pm2-connect",
-  "bin": {
-    "pm2-connect": "./bin/pm2-connect"
-  },
+  "name": "pm2-connect-server",
+  "bin": {},
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
