@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js --config nodemon.json",
-    "start": "NODE_ENV=production node server.js",
+    "dev": "nodemon index.js --config nodemon.json",
+    "start": "NODE_ENV=production node index.js",
     "build": "next build ./server/web",
     "postinstall": "npm run build"
   },
