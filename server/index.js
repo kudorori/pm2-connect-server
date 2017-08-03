@@ -9,6 +9,14 @@ import { createServer } from "http";
 import next from "next";
 import schema from "./gql";
 import * as host from "./pubsub/host";
+import auth from "http-auth";
+import koaAuth from "http-auth-koa";
+
+const basic = auth.basic({
+    realm: "PM2-Connect",
+    file: __dirname + "/users.htpasswd"
+});
+
 const port = process.env.PORT || 3030;
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -37,8 +45,9 @@ Promise.all([web.prepare()]).then(() => {
     subscriptionsEndpoint: `ws://localhost:${port}/subscriptions`
   }));
 
-  router.get('*', async ctx => {
-    await handle(ctx.req, ctx.res)
+  router.get('*', async (ctx, next) => {
+    await next();
+    await handle(ctx.req, ctx.res);
     ctx.respond = false
   })
 
@@ -49,7 +58,16 @@ Promise.all([web.prepare()]).then(() => {
     await next()
   })
 
-  server.use(router.routes())
+  server.use(router.routes());
+  server.use(async (ctx, next) => {
+      await basic.check(ctx.req, ctx.res, (req, res, err) => {
+          if (err) {
+              throw err;
+          } else {
+              next();
+          }
+      });
+  });
 
   let srv = createServer(server.callback());
   let so = socket(srv);
