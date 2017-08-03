@@ -9,6 +9,7 @@ import { createServer } from "http";
 import next from "next";
 import schema from "./gql";
 import * as host from "./pubsub/host";
+const port = process.env.PORT || 3030;
 
 const dev = process.env.NODE_ENV !== 'production';
 const web = next({ dir: "./server/web", dev });
@@ -33,7 +34,7 @@ Promise.all([web.prepare()]).then(() => {
 
   router.get('/graphql', graphiqlKoa({
     endpointURL: "/graphql",
-    subscriptionsEndpoint: `ws://localhost:3030/subscriptions`
+    subscriptionsEndpoint: `ws://localhost:${port}/subscriptions`
   }));
 
   router.get('*', async ctx => {
@@ -63,7 +64,8 @@ Promise.all([web.prepare()]).then(() => {
       host.setData(cid, data);
     })
   })
-  srv.listen(3030,  () => {
+
+  srv.listen(port,  () => {
     new SubscriptionServer({
       schema,
       subscribe,
