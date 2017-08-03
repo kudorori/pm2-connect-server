@@ -1,0 +1,64 @@
+{
+  "name": "pm2-connect",
+  "bin": {
+    "pm2-connect": "./bin/pm2-connect"
+  },
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js --config nodemon.json",
+    "start": "NODE_ENV=production node server.js",
+    "build": "next build ./server/web",
+    "postinstall": "npm run build"
+  },
+  "keywords": [
+    "pm2"
+  ],
+  "author": "Su Ming Feng",
+  "license": "MIT",
+  "dependencies": {
+    "dataloader": "^1.3.0",
+    "graphql": "^0.10.5",
+    "graphql-subscriptions": "^0.4.4",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1",
+    "next": "^2.4.9",
+    "pm2": "^2.6.1",
+    "react": "^15.6.1",
+    "react-apollo": "^1.4.10",
+    "react-dom": "^15.6.1",
+    "recharts": "^1.0.0-alpha.2",
+    "redux": "^3.7.2",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3",
+    "subscriptions-transport-ws": "^0.8.2",
+    "ws": "^3.1.0",
+    "yargs": "^8.0.2",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-package-name-import": "^1.0.0",
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-plugin-syntax-decorators": "^6.13.0",
+    "babel-plugin-syntax-export-extensions": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "devDependencies": {
+
+  },
+  "babel": {
+    "presets": [
+      "next/babel",
+      "es2015"
+    ],
+    "plugins": [
+      "syntax-object-rest-spread",
+      "transform-decorators-legacy",
+      "syntax-export-extensions",
+      "transform-class-properties",
+      "styled-jsx/babel"
+    ]
+  }
+}

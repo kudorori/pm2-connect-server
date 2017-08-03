@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+var path = require('path');
+var childProcess = require('child_process');
+var argv = require('yargs')
+            .command("link", "", function(yargs){
+              var host = yargs.argv._[1];
+              var script = path.resolve(__dirname, '../index.js');
+              var cmd = `HOST=${host} pm2 start ${script}`
+              childProcess.execSync(cmd);
+            })
+            .argv;
+
+process.exit(1);
